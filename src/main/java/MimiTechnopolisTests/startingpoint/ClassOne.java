@@ -14,8 +14,8 @@ public class ClassOne {
 	
 	@Before
 	public void setUpEnvironment(){
-		//System.setProperty("webdriver.chrome.driver", "D://libr//chromedriver.exe");
-		System.setProperty("webdriver.chrome.driver", "C://Users//matanasova//Milena additional//programs//chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "D://libr//chromedriver.exe");
+		//System.setProperty("webdriver.chrome.driver", "C://Users//matanasova//Milena additional//programs//chromedriver.exe");
 		 driver = new ChromeDriver();
 		 driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		 driver.get("http://www.technopolis.bg/");
@@ -25,7 +25,7 @@ public class ClassOne {
 	@Test
 	public void verifyValidationforMissing(){
 		//Navigate to Login Page
-		WebElement elemtn = driver.findElement(By.xpath("href=/bg/login"));
+		WebElement elemtn = driver.findElement(By.xpath("//a[@href='/bg/login']"));
 		elemtn.click();
 	}
 
