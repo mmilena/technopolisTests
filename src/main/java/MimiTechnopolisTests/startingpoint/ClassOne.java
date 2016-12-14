@@ -2,6 +2,7 @@ package MimiTechnopolisTests.startingpoint;
 
 import java.util.concurrent.TimeUnit;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -23,10 +24,38 @@ public class ClassOne {
 	}
 	
 	@Test
-	public void verifyValidationforMissing(){
-		//Navigate to Login Page
-		WebElement elemtn = driver.findElement(By.xpath("//a[@href='/bg/login']"));
-		elemtn.click();
+	public void verifyValidationIsRaisedForMissingPass(){
+
+		WebElement vhodButton = driver.findElement(By.xpath("//a[@href='/bg/login']"));
+		vhodButton.click();
+		
+		WebElement usernameField = driver.findElement(By.id("j_username"));
+		usernameField.click();
+		usernameField.sendKeys("mimi");
+		
+		WebElement sbmtButton = driver.findElement(By.xpath("//form[@id='loginForm']//button[@type='submit']"));
+		sbmtButton.click();
+		
+		WebElement errorMsg = driver.findElement(By.xpath("//div[@class='message error']"));
+
+		Assert.assertNotNull(errorMsg);
+		driver.quit();
+	}
+	
+	@Test
+	public void verifyProductIsInBasket(){
+		WebElement searchBox = driver.findElement(By.id("search"));
+		searchBox.sendKeys("лаптоп");
+		WebElement findButton = driver.findElement(By.xpath("//button[text()='Tърсене']"));
+		findButton.click();
+		
+		WebElement firstProductInList = driver.findElement(By.xpath("//form[@id='addToCartForm512850']//button[@id='addToCartButton']"));
+		firstProductInList.click();
+		String expectedResult = driver.findElement(By.xpath("//div[@class='product-box']//h2//a[contains(@href, '512850')]")).getText();
+		String actualResult = driver.findElement(By.xpath("//div[@id='cboxLoadedContent']//figcaption")).getText();
+		
+		Assert.assertEquals(expectedResult, actualResult);
+		driver.quit();
 	}
 
 }
