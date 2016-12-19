@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 
 public class ClassOne {
 	WebDriver driver;
@@ -53,9 +54,20 @@ public class ClassOne {
 		firstProductInList.click();
 		String expectedResult = driver.findElement(By.xpath("//div[@class='product-box']//h2//a[contains(@href, '512850')]")).getText();
 		String actualResult = driver.findElement(By.xpath("//div[@id='cboxLoadedContent']//figcaption")).getText();
-		
 		Assert.assertEquals(expectedResult, actualResult);
 		driver.quit();
 	}
+	
+	@Test
+	public void verifyPlaceholdervalueInSearchBox(){
+		WebElement categoryButton = driver.findElement(By.xpath("//form[@name='site_search']//li[@class='category']"));
+		Actions action = new Actions(driver);
+		action.moveToElement(categoryButton).build().perform();
+		
+		WebElement chosenCategory = driver.findElement(By.xpath("//form[@name='site_search']//li[@class='category']//li//a[@class='category-pc']"));
+		chosenCategory.click();
+		//TODO verify the placeholder text is corrct basing on the chosen category. Try data driven in order to select all categories
+	}
+	
 
 }
