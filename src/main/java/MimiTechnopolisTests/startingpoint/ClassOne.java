@@ -10,6 +10,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ClassOne {
 	WebDriver driver;
@@ -66,8 +69,22 @@ public class ClassOne {
 		
 		WebElement chosenCategory = driver.findElement(By.xpath("//form[@name='site_search']//li[@class='category']//li//a[@class='category-pc']"));
 		chosenCategory.click();
-		//TODO verify the placeholder text is corrct basing on the chosen category. Try data driven in order to select all categories
+		
+		//WebDriverWait wait = new WebDriverWait(driver, 5);
+		//WebElement element = wait.until(ExpectedConditions.elementToBeClickable(chosenCategory));
+				
+		String valueOfCategory = chosenCategory.getAttribute("class");
+		
+		WebElement searchBox = driver.findElement(By.id("search"));
+		String valueOfPlaceHolder = searchBox.getAttribute("placeholder");
+		System.out.println(valueOfCategory);
+		System.out.println(valueOfPlaceHolder);
+		//TODO first: Investigate why the test sometimes pass, sometimes not. Probably the Dom tree changes and i have to position the wait on other place?
+		//TODO verify the placeholder text is correct basing on the chosen category. Try data driven in order to select all categories
+		
+		
 	}
+	
 	
 
 }
